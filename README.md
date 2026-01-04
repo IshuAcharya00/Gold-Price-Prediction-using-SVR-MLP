@@ -1,66 +1,94 @@
-Gold Price Prediction using SVR & MLP (Voting Regressor)
-This project leverages 25 years of historical gold stock data (2000–2025) to predict the next day's closing price. By employing a Voting Regressor ensemble—combining Support Vector Regression (SVR) and a Multi-Layer Perceptron (MLP)—the model generates a "Buy" or "Sell" trade signal based on the predicted price movement.
+# 📈 Gold Price Prediction using SVR & MLP (Voting Regressor)
 
-Project Overview
-The goal of this project is to analyze long-term historical gold price trends and build a robust machine learning model for short-term forecasting.
+This project leverages **25 years of historical gold price data (2000–2025)** to predict the **next day’s closing gold price**.  
+An ensemble **Voting Regressor**, combining **Support Vector Regression (SVR)** and **Multi-Layer Perceptron (MLP)**, is used to enhance prediction stability and accuracy.  
+Based on the predicted movement, the system generates a simple **Buy/Sell trading signal**.
 
-Data Source: Kaggle (25 years of gold stock data).
+---
 
-Training Period: First 20 years of data.
+## 📌 Project Overview
 
-Testing Period: Last 5 years of data (for performance comparison).
+The main objective of this project is to analyze long-term historical trends in gold prices and develop a robust **machine learning-based short-term forecasting model**.
 
-Core Models: SVR (Support Vector Regression) and MLP (Multi-Layer Perceptron).
+- **Data Source:** Kaggle (25 years of gold stock data)
+- **Training Period:** First 20 years (2000–2019)
+- **Testing Period:** Last 5 years (2020–2025)
+- **Core Models:**  
+  - Support Vector Regression (SVR)  
+  - Multi-Layer Perceptron (MLP)
+- **Ensemble Method:** Voting Regressor
+- **Output:**  
+  - Next-day predicted closing price  
+  - Buy/Sell trading signal
 
-Ensemble Method: Voting Regressor for improved accuracy.
+---
 
-Output: Next-day predicted closing price and a Buy/Sell signal.
+## 📊 Dataset Description
 
-Dataset Description
-The dataset includes daily gold price metrics:
+The dataset consists of daily gold price metrics with the following features:
 
-Date: The trading date.
+| Feature Name       | Description |
+|-------------------|-------------|
+| Date              | Trading date |
+| GC=F_Open         | Opening price |
+| GC=F_High         | Highest price of the day |
+| GC=F_Low          | Lowest price of the day |
+| GC=F_Close        | Closing price (**Target Variable**) |
+| GC=F_Volume       | Total trading volume |
 
-GC=F_Open: Opening price.
+---
 
-GC=F_High: Highest price of the day.
+## 🧠 Model Architecture
 
-GC=F_Low: Lowest price of the day.
+### 🔹 Data Preprocessing
+- Feature scaling performed using **MinMaxScaler**
+- Normalization ensures stable learning for both **SVR** and **MLP**
 
-GC=F_Close: Closing price (Target Variable).
+### 🔹 Individual Models
+- **SVR (Support Vector Regression):**  
+  Captures non-linear relationships effectively in time-series data.
 
-GC=F_Volume: Total shares traded.
+- **MLP (Multi-Layer Perceptron):**  
+  Learns complex patterns and interactions in historical price movements.
 
+### 🔹 Ensemble Model
+- **Voting Regressor:**  
+  Combines predictions from SVR and MLP to reduce individual model bias and improve overall forecast reliability.
 
-Model Architecture:
-Preprocessing: Data is scaled using MinMaxScaler to normalize features for the Neural Network (MLP) and SVR models.
+---
 
-Individual Models:
+## 📈 Trading Signal Logic
 
-SVR: Effective for capturing non-linear relationships in time-series data.
+Based on the predicted closing price:
 
-MLP: A neural network approach to learn complex patterns in price fluctuations.
+- **BUY** → If `Predicted Close > Current Close`
+- **SELL** → If `Predicted Close < Current Close`
 
-Ensemble (Voting Regressor): Combines the predictions of both SVR and MLP to reduce individual model bias and provide a more stable forecast.
+This logic provides a simple yet interpretable trading recommendation.
 
-Trading Signal Logic:
+---
 
-BUY: If Predicted Close > Current Close.
+## ✅ Results & Evaluation
 
-SELL: If Predicted Close < Current Close.
+- The model performance is evaluated over the **5-year test period**
+- A detailed comparison between:
+  - **Actual Closing Price**
+  - **Predicted Closing Price**
+- Visualization and error metrics are included in the notebook to assess reliability and trend-following behavior.
 
+---
 
-Results:
-The notebook includes a detailed comparison between the Predicted Close and the Actual Close over the 5-year test period to evaluate the model's reliability.
+## 🔮 Example Forecast Output
 
-Example Forecast Output:
 NEXT DAY GOLD FORECAST (CLOSE ONLY)
-----------------------------------
+
 Predicted Close : 3257.92
-Current Close   : 3241.40
-Change (%)      : 0.51%
-TRADE SIGNAL    : BUY
+Current Close : 3241.40
+Change (%) : 0.51%
+TRADE SIGNAL : BUY
 
-License
-This project is for educational and research purposes. Trading stocks involves risk; always perform your own due diligence.
 
+## 📄 License
+
+This project is open for academic and learning use.  
+Feel free to explore, modify, and improve the model for research purposes.
